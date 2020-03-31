@@ -1,0 +1,2 @@
+the function open, open file and return a stream
+raise OIError upon failure

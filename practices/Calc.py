@@ -67,9 +67,9 @@ class Calc:
 
 
 calc = Calc()
+
 try:
     calc.set_opts()
-    calc.calculate()
 except OptionsWithoutEntering as exception:
     print(exception.msg)
 except WrongOperation as exception:
@@ -77,3 +77,8 @@ except WrongOperation as exception:
 except getopt.GetoptError as exception:
     print(exception.msg)
     print(OptionsWithoutEntering.msg)
+
+try:
+    calc.calculate()
+except ZeroDivisionError as error:
+    print(error)
