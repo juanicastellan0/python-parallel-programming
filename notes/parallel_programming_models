@@ -1,0 +1,4 @@
+- Shared memory models
+- Multithread model
+- Distributed memory/message passing model
+- Data parallel model
