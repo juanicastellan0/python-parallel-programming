@@ -14,9 +14,14 @@ class OptionsWithoutEntering(Exception):
 
 
 class WrongOperation(Exception):
-    @staticmethod
-    def get_message(wrong, valid):
-        return "you entered: " + wrong + ", valid operations: " + valid
+    wrong = ''
+
+    def __init__(self, wrong):
+        self.wrong = wrong
+
+    def get_message(self, valid):
+        valid_ops = " "
+        return "you entered: " + self.wrong + ", valid operations: " + valid_ops.join(valid)
 
     pass
 
@@ -27,7 +32,7 @@ class Calc:
     op = ''
 
     def set_opts(self):
-        (opts) = getopt.getopt(sys.argv[1:], 'a:b:o:')
+        (opts, args) = getopt.getopt(sys.argv[1:], 'a:b:o:')
 
         if len(opts) < 3:
             raise OptionsWithoutEntering()
@@ -39,7 +44,7 @@ class Calc:
                 self.b = int(value)
             elif option == '-o':
                 if value not in self.VALID_OPS:
-                    raise WrongOperation()
+                    raise WrongOperation(value)
                 self.op = value
 
     def calculate(self):
@@ -62,11 +67,18 @@ class Calc:
 
 
 calc = Calc()
+
 try:
     calc.set_opts()
-    calc.calculate()
 except OptionsWithoutEntering as exception:
     print(exception.msg)
+except WrongOperation as exception:
+    print(exception.get_message(Calc.VALID_OPS))
 except getopt.GetoptError as exception:
     print(exception.msg)
     print(OptionsWithoutEntering.msg)
+
+try:
+    calc.calculate()
+except ZeroDivisionError as error:
+    print(error)
