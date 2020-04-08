@@ -10,3 +10,9 @@ git clone https://github.com/juanicastellan0/python-parallel-programming.git
 ```bash
 git checkout tags/GETOPT
 ```
+
+## tag: ej3 (subprocess Popen)
+
+```bash
+git checkout tags/ej3
+```
