@@ -46,13 +46,16 @@ class Parent:
     def wait():
         time.sleep(2)
         print('I am the parent with pid: ' + str(os.getpid()) + ' (on wait)')
-        print('- Parent: Waiting for completion of my child process...')
+        # print('Waiting for completion of my child process...')
         time.sleep(1)
         child_pid, status = os.wait()
         print('Child process with pid: ' + str(child_pid) + ' completed with status: ' + str(status))
 
 
-parent = Parent()
-parent.gen_child()
-if parent.children_qty == 1:
-    parent.wait()
+try:
+    parent = Parent()
+    parent.gen_child()
+    if parent.children_qty == 1:
+        parent.wait()
+except getopt.GetoptError as error:
+    print('\n Error: ' + error.msg)

@@ -16,3 +16,14 @@ git checkout tags/GETOPT
 ```bash
 git checkout tags/ej3
 ```
+
+## tag: fork
+
+```bash
+git checkout tags/fork
+cd practices
+# ej 4:
+python Parent.py
+# ej 5:
+python Parent.py -n 3
+```
