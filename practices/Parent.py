@@ -1,22 +1,32 @@
 #!/usr/bin/python
 
 import os
+import sys
 import time
+import getopt
 
 
 class Parent:
-    fork = None
+    children_qty = 1
 
     def __init__(self):
         print('I am the parent with pid: ' + str(os.getpid()) + ' (on init)')
+        (opts, args) = getopt.getopt(sys.argv[1:], 'n:')
+        if len(opts) == 1:
+            for (option, value) in opts:
+                if option == '-n':
+                    self.children_qty = int(value)
 
     def gen_child(self):
-        self.fork = os.fork()
-        if self.fork == 0:
-            print('(is the child)')
-            self.child_fun()
+        if self.children_qty < 1:
+            fork = os.fork()
+            if fork == 0:
+                self.child_fun()
         else:
-            print('(is the parent)')
+            for i in range(self.children_qty):
+                fork = os.fork()
+                if fork == 0:
+                    self.other_child_fun()
 
     @staticmethod
     def child_fun():
@@ -26,19 +36,23 @@ class Parent:
         os._exit(0)
 
     @staticmethod
+    def other_child_fun():
+        print('I am the child with pid: ' + str(os.getpid())
+              + ' and my parent pid is: ' + str(os.getppid()))
+        time.sleep(1)
+        os._exit(0)
+
+    @staticmethod
     def wait():
+        time.sleep(2)
         print('I am the parent with pid: ' + str(os.getpid()) + ' (on wait)')
-        print('Waiting for completion of my child process...')
+        print('- Parent: Waiting for completion of my child process...')
+        time.sleep(1)
         child_pid, status = os.wait()
         print('Child process with pid: ' + str(child_pid) + ' completed with status: ' + str(status))
 
 
 parent = Parent()
 parent.gen_child()
-parent.wait()
-
-'''
-se ejecuta un proceso y se le hace fork para crear un hijo
-el fork crea un proceso hijo y devuelve el id al padre, le indicamos que espere a que termine el hijo
-el fork también le devuelve 0 al hijo, entonces podemos hacer que el hijo haga su propia función
-'''
+if parent.children_qty == 1:
+    parent.wait()
