@@ -27,3 +27,13 @@ python Parent.py
 # ej 5:
 python Parent.py -n 3
 ```
+
+## tag: signal
+
+```bash
+git checkout tags/signal
+cd practices
+# ej 7:
+python Parent.py -n 2
+# ej 8:
+python Parent.py -n 3 send
