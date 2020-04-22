@@ -24,20 +24,16 @@ class Parent:
                     self.send_activated = True
 
     def control_children(self):
-        if self.children_qty == 1:
-            self.print_a_child_five_times()
-
-        elif self.children_qty == 2:
+        if self.children_qty > 1:
             if self.send_activated:
                 self.send_signal_to_children()
             else:
-                self.ping_pong()
-
+                if self.children_qty == 2:
+                    self.ping_pong()
+                else:
+                    self.print_each_child_once()
         else:
-            if self.send_activated:
-                self.send_signal_to_children()
-            else:
-                self.print_each_child_once()
+            self.print_a_child_five_times()
 
     def ping_pong(self):
         fork1 = os.fork()
