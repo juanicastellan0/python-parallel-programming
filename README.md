@@ -33,7 +33,10 @@ python Parent.py -n 3
 ```bash
 git checkout tags/signal
 cd practices
+# ej 6:
+python Parent.py --send
 # ej 7:
 python Parent.py -n 2
 # ej 8:
 python Parent.py -n 3 --send
+```
