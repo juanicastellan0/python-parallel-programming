@@ -12,6 +12,8 @@ class Parent:
     ping_received = False
     send_activated = False
     sigusr_received = False
+    child_pid = 0
+    child_pids = []
 
     def __init__(self):
         print('I am the parent with pid: ' + str(os.getpid()) + ' (on init)')
@@ -33,19 +35,25 @@ class Parent:
                 else:
                     self.print_each_child_once()
         else:
-            self.print_a_child_five_times()
+            if self.send_activated:
+                self.send_signal_to_child_each_five_seconds()
+            else:
+                self.print_a_child_five_times()
 
     def ping_pong(self):
+        signal.signal(signal.SIGINT, self.parent_term_handler)
         fork1 = os.fork()
         if fork1 == 0:
             self.ping()
         else:
+            self.child_pids.append(fork1)
             fork2 = os.fork()
             if fork2 == 0:
                 signal.signal(signal.SIGUSR1, self.pong)
                 while True:
                     signal.pause()
             else:
+                self.child_pids.append(fork2)
                 signal.signal(signal.SIGUSR1, self.receive_ping)
                 while True:
                     signal.pause()
@@ -58,7 +66,7 @@ class Parent:
             print('\nPING \t- Im the child 1 with PID: ' + str(os.getpid()))
             os.kill(os.getppid(), signal.SIGUSR1)
             time.sleep(1)
-        os.kill(os.getppid(), signal.SIGTERM)
+        os.kill(os.getppid(), signal.SIGINT)
 
     # child handler
     def pong(self, signum, stack):
@@ -68,6 +76,12 @@ class Parent:
     # parent handler
     def receive_ping(self, signum, stack):
         self.ping_received = True
+
+    def parent_term_handler(self, signum, stack):
+        time.sleep(1)
+        for pid in self.child_pids:
+            os.kill(pid, signal.SIGTERM)
+        os.kill(os.getpid(), signal.SIGTERM)
 
     def send_signal_to_children(self):
         children_pids = []
@@ -91,6 +105,30 @@ class Parent:
     def show_message(self, signum, stack):
         self.sigusr_received = True
         print('PID: ' + str(os.getpid()) + ' received signal: ' + str(signum) + ' from PPID: ' + str(os.getppid()))
+
+    def parent_handler(self, signum, stack):
+        print('Parent saying goodbye... ')
+        time.sleep(1)
+        os.kill(self.child_pid, signal.SIGTERM)
+        os.kill(os.getpid(), signal.SIGTERM)
+
+    @staticmethod
+    def child_message(signum, stack):
+        print('PID: ' + str(os.getpid()) + ' received signal: ' + str(signum) + ' from PPID: ' + str(os.getppid()))
+
+    def send_signal_to_child_each_five_seconds(self):
+        signal.signal(signal.SIGUSR1, self.child_message)
+        fork = os.fork()
+        if fork == 0:
+            while True:
+                signal.pause()
+        else:
+            self.child_pid = fork
+            signal.signal(signal.SIGINT, self.parent_handler)
+            for i in range(20):
+                os.kill(fork, signal.SIGUSR1)
+                time.sleep(1)
+            os.kill(fork, signal.SIGTERM)
 
     @staticmethod
     def print_a_child_five_times():
