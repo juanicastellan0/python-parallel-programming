@@ -36,4 +36,4 @@ cd practices
 # ej 7:
 python Parent.py -n 2
 # ej 8:
-python Parent.py -n 3 send
+python Parent.py -n 3 --send
