@@ -2,6 +2,7 @@
 
 import os
 import signal
+import sys
 import time
 
 
@@ -35,11 +36,17 @@ class Pipe:
             print('process A is waiting for a sigusr2...')
             while True:  # PROCESS A WAIT FOR SIGUSR2
                 signal.pause()
-                # PROCESS A READ AND SHOW PIPE MESSAGES
-                if self.sigusr2_received:
-                    print('process A is reading the pipe...')
+                if self.sigusr2_received:  # PROCESS A READ AND SHOW PIPE MESSAGES
+                    print('process A with PID=' + str(os.getpid()) + ' is reading the pipe...')
                     time.sleep(1)
-                    os._exit(0)
+                    os.close(self.write_fd)
+                    read_fd = os.fdopen(self.read_fd)
+                    msg = read_fd.read()
+                    if not msg:
+                        print("Empty message.")
+                    else:
+                        print("Message: " + msg)
+                    sys.exit(0)
         else:  # PROCESS B
             # SECOND FORK
             pid_c = os.fork()
@@ -48,10 +55,14 @@ class Pipe:
                 print('process B is waiting for a sigusr1...')
                 while True:
                     signal.pause()
-                    # PROCESS B WRITE MESSSAGE 1 IN PIPE
-                    if self.sigusr1_received:
-                        print('process B is writing on the pipe...')
+                    if self.sigusr1_received:  # PROCESS B WRITE MESSSAGE 1 IN PIPE
                         self.sigusr1_received = False
+                        print('process B is writing on the pipe...')
+                        os.close(self.read_fd)
+                        write_fd = os.fdopen(self.write_fd, 'w')
+                        msg = '\nMessage 1 PID=' + str(os.getpid())
+                        write_fd.write(msg)
+                        write_fd.close()
                         # PROCESS B SEND SIGUSR1 TO PROCESS C
                         print('process B will send a sigusr1 to process C ' + str(pid_c))
                         time.sleep(1)
@@ -60,10 +71,14 @@ class Pipe:
                 while True:  # PROCESS C WAIT FOR SIGUSR1
                     print('process C is waiting for a sigusr1...')
                     signal.pause()
-                    if self.sigusr1_received:
-                        # PROCESS C WRITE MESSAGE 2 IN PIPE
+                    if self.sigusr1_received:  # PROCESS C WRITE MESSAGE 2 IN PIPE
                         self.sigusr1_received = False
                         print('process C is writing on the pipe...')
+                        os.close(self.read_fd)
+                        msg = '\nMessage 2 PID=' + str(os.getpid())
+                        write_fd = os.fdopen(self.write_fd, 'w')
+                        write_fd.write(msg)
+                        write_fd.close()
                         # PROCESS C SEND SIGUSR2 TO PROCESS A
                         print('process C will send a sigusr2 to process A ' + str(pid_a))
                         time.sleep(1)
