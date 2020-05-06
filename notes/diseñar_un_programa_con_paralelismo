@@ -1,0 +1,17 @@
+Operaciones:
+- Descomposición de tareas:
+    Dividir el programa en tareas o conjunto de instrucciones que se van a ejecutar
+    en diferentes procesadores. Se puede hacer dividiendo los datos o en tareas.
+- Asignación de tareas:
+    Especificar el mecanismo por el cual la tarea se distribuirá entre los diversos
+    procesos. El equilibrio de carga es crucial y se debe evitar un estado inactivo
+    durante mucho tiempo. Se debe tener en cuenta los diferentes elementos del sis-
+    tema que intenta asignar más tareas a procesadores con mejor rendimiento. Para
+    mayor eficiencia, se debe limitar la comunicación lo que más se pueda entre los
+    procesadores.
+- Aglomeración:
+    Combinar tareas más pequeñas con tareas más grandes para mejorar el rendimiento.
+    Si las tareas definidas son muchas (miles) el diseño puede resultar ineficiente.
+- Mapping
+    Especificar dónde se ejecutará la tarea para minimizar el tiempo total de ejecu-
+    ción. Existen dos estrategias principales.

@@ -40,3 +40,16 @@ python Parent.py -n 2
 # ej 8:
 python Parent.py -n 3 --send
 ```
+
+## tag: pipe
+```bash
+git checkout tags/signal
+cd practices
+# ej 9:
+python pipe.py
+# ej 10:
+    # terminal 1:
+    python fifo.py --producer hola
+    # terminal 2:
+    python fifo.py --consumer
+```
