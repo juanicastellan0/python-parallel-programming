@@ -12,6 +12,14 @@ port = int(sys.argv[2])
 def send(sock, message):
     sock.send(message.encode('ascii'))
     code = sock.recv(1024)
+
+    if code == '400':
+        print('Unexpected message, the protocol is as follows:')
+        print('hello|[name] -> email|[email] -> key|[key] -> exit')
+    elif code == '500':
+        print('Invalid message, the protocol is as follows:')
+        print('hello|[name] -> email|[email] -> key|[key] -> exit')
+
     return code
 
 
