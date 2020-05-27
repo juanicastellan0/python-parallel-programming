@@ -31,9 +31,6 @@ while True:
         s.connect((host, port))
         print('Connecting...')
 
-        msg = s.recv(1024)
-        print('Message received from server: ' + msg.decode('ascii'))
-
         meet = 'hello|' + input('Your name: ')
         meet_resp = send(s, meet)
 
