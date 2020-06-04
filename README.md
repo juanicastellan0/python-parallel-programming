@@ -67,7 +67,7 @@ python server_compu2.py
 python stream_client.py localhost 8080
 ```
 
-# tag: tcp_udp
+## tag: tcp_udp
 ```bash
 git checkout tags/tcp_udp
 cd practices
@@ -77,7 +77,7 @@ python stdin_server.py -p 8080 -t tcp -f file.txt
 python stdin_client.py -a localhost -p 8080 -t tcp
 ```
 
-# tag: remote_shell
+## tag: remote_shell
 ```bash
 git checkout tags/remote_shell
 cd practices
