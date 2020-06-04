@@ -156,10 +156,8 @@ class Parent:
                 os._exit(0)
 
 
-'''
 try:
     parent = Parent()
     parent.control_children()
 except getopt.GetoptError as error:
     print('\n Error: ' + error.msg)
-'''
