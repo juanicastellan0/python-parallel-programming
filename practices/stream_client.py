@@ -11,7 +11,7 @@ port = int(sys.argv[2])
 
 def send(sock, message):
     sock.send(message.encode('ascii'))
-    code = sock.recv(1024)
+    code = sock.recv(1024).decode('ascii')
 
     if code == '400':
         print('Unexpected message, the protocol is as follows:')
