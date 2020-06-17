@@ -105,3 +105,10 @@ git checkout tags/mp_pipe
 cd practices
 python multi_pipe.py
 ```
+
+## tag: mp_mq
+```bash
+git checkout tags/mp_mq
+cd practices
+python multi_queue.py
+```
