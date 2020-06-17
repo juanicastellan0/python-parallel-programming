@@ -98,3 +98,10 @@ python multi_shell_client.py -l shell.txt
 # terminal 3
 python multi_shell_client.py -l shell2.txt
 ```
+
+## tag: mp_pipe
+```bash
+git checkout tags/mp_pipe
+cd practices
+python multi_pipe.py
+```
