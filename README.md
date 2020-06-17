@@ -86,3 +86,15 @@ python shell_server.py
 # terminal 2
 python shell_client.py -l shell.txt
 ```
+
+## tag: remote_shell_multiproc
+```bash
+git checkout tags/remote_shell_multiproc
+cd practices
+# terminal 1
+python multi_shell_server.py
+# terminal 2
+python multi_shell_client.py -l shell.txt
+# terminal 3
+python multi_shell_client.py -l shell2.txt
+```
