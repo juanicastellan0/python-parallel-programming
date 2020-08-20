@@ -122,3 +122,10 @@ python echo_inv_server.py -p 8080
 # terminal 2
 python echo_inv_client.py -h 127.0.0.1 -p 8080
 ```
+
+## tag: time
+```bash
+git checkout tags/time
+cd practices
+python client_time.py -h time.nist.gov -p 13 -t tcp
+```
