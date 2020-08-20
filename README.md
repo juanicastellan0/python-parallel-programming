@@ -112,3 +112,13 @@ git checkout tags/mp_mq
 cd practices
 python multi_queue.py
 ```
+
+## tag: echo_inv
+```bash
+git checkout tags/echo_inv
+cd practices
+# terminal 1
+python echo_inv_server.py -p 8080
+# terminal 2
+python echo_inv_client.py -h 127.0.0.1 -p 8080
+```
