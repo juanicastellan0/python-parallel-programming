@@ -129,3 +129,10 @@ git checkout tags/time
 cd practices
 python client_time.py -h time.nist.gov -p 13 -t tcp
 ```
+
+## tag: lock
+```bash
+git checkout tags/lock
+cd practices
+python alphabet_lock.py -n 26 -f /tmp/alphabet.txt -r 3
+```
