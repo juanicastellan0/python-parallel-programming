@@ -136,3 +136,14 @@ git checkout tags/lock
 cd practices
 python alphabet_lock.py -n 26 -f /tmp/alphabet.txt -r 3
 ```
+
+## tag: sock_lock
+```bash
+git checkout tags/sock_lock
+cd practices
+# terminal 1
+python client_lock.py -p 8080
+# terminal 2
+telnet 127.0.1.1 8080
+# test commands
+```
