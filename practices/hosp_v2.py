@@ -1,4 +1,5 @@
 # !/usr/bin/python
+
 import sys
 from getopt import getopt
 from multiprocessing import Process, Lock, Value, Semaphore
@@ -66,6 +67,7 @@ def init_wait():
     enter_lock = Lock()
     out_lock = Lock()
 
+    print('Consultorios disponibles: ' + str(surgeries_available.get_value()))
     enter_process = Process(target=going_in, args=(surgeries_available, enter, enter_lock, min_arrival, max_arrival))
     out_process = Process(target=going_out, args=(surgeries_available, out, out_lock, min_departure, max_departure))
     enter_process.start()
