@@ -147,3 +147,12 @@ python client_lock.py -p 8080
 telnet 127.0.1.1 8080
 # test commands
 ```
+
+## tag: hosp
+```bash
+git checkout tags/hosp
+cd practices
+python hosp_v1.py
+# or
+python hosp_v2.py -a 10 -b 2 -c 6 -d 3 -e 9
+```
