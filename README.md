@@ -179,3 +179,13 @@ python alice_threads.py
 # terminal 2
 python bob.py -i 127.0.1.1
 ```
+
+## tag: hash
+```bash
+git checkout tags/hash
+cd practices
+# terminal 1
+python hash_server.py -p 8080
+# terminal 2
+python hash_client.py -a 127.0.1.1 -p 8080 -h sha1 -c "hi world"
+```
