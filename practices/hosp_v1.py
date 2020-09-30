@@ -1,4 +1,4 @@
-# !/usr/bin/python
+#!/usr/bin/python
 
 from multiprocessing import Process, Lock, Value, Semaphore
 import time
