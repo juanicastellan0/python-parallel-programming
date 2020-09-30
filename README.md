@@ -156,3 +156,13 @@ python hosp_v1.py
 # or
 python hosp_v2.py -a 10 -b 2 -c 6 -d 3 -e 9
 ```
+
+## tag: walkie
+```bash
+git checkout tags/walkie
+cd practices
+# terminal 1
+python alice.py
+# terminal 2
+python bob.py -i 127.0.1.1
+```
