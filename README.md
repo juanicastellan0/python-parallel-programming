@@ -166,3 +166,16 @@ python alice.py
 # terminal 2
 python bob.py -i 127.0.1.1
 ```
+
+## tag: th
+```bash
+git checkout tags/th
+cd practices
+# ej 19
+python alphabet_threads.py -n 26 -f /tmp/alphabet.txt -r 3
+# ej 22
+# terminal 1
+python alice_threads.py
+# terminal 2
+python bob_threads.py -i 127.0.1.1
+```
