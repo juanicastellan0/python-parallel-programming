@@ -196,3 +196,10 @@ git checkout tags/pcuadrado
 cd practices
 python square_calc.py -p 3 -m 6 -n 100
 ```
+
+## tag: pool_cuad
+```bash
+git checkout tags/pool_cuad
+cd practices
+python square_calc_pool.py -p 3 -m 6 -n 100
+```
