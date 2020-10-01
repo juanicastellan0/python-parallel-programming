@@ -189,3 +189,10 @@ python hash_server.py -p 8080
 # terminal 2
 python hash_client.py -a 127.0.1.1 -p 8080 -h sha1 -c "hi world"
 ```
+
+## tag: pcuadrado
+```bash
+git checkout tags/pcuadrado
+cd practices
+python square_calc.py -p 3 -m 6 -n 100
+```
