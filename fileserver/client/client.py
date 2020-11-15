@@ -25,6 +25,11 @@ def launch_client():
     sock = socket(AF_INET, SOCK_STREAM)
     sock.connect((host, port))
     print('Client connected on ' + host + ':' + str(port))
+    command = ''
+    while command != 'exit':
+        command = str(input('> '))
+        sock.send(command.encode('ascii'))
+        print(sock.recv(4096).decode('ascii'))
 
 
 launch_client()

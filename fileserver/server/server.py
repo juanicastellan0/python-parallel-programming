@@ -3,8 +3,8 @@
 from socket import socket, gethostbyname, getfqdn, AF_INET, SOCK_STREAM
 from getopt import getopt
 from sys import argv, exit
-from threading import Lock, Thread
-from fileserver.server.command_manager import manage_commands
+from threading import Thread
+from command_manager import manage_commands
 
 
 def get_port():
@@ -27,11 +27,11 @@ def launch_server():
     sock.bind(('', port))
     print('Server launched on: ' + ip + ':' + str(port))
     sock.listen(8)
-    lock = Lock()
     while True:
         client_sock, client_ip = sock.accept()
         print('Client connected from ' + client_ip[0])
-        thread = Thread(target=manage_commands, args=(client_sock, lock))
+        thread = Thread(target=manage_commands, args=(client_sock,))
+        thread.start()
 
 
 launch_server()
