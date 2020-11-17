@@ -3,6 +3,8 @@
 from socket import socket, AF_INET, SOCK_STREAM
 from getopt import getopt
 from sys import argv, exit
+from threading import Thread
+from fileserver.command_manager import manage_commands
 
 
 def get_options():
@@ -28,8 +30,12 @@ def launch_client():
     command = ''
     while command != 'exit':
         command = str(input('> '))
-        sock.send(command.encode('ascii'))
-        print(sock.recv(4096).decode('ascii'))
+        if command.partition(' ')[0] in ['lpwd', 'lcd', 'lls', 'put', 'help']:
+            child = Thread(target=manage_commands, args=(sock,))
+            child.start()
+        else:
+            sock.send(command.encode('ascii'))
+            print(sock.recv(4096).decode('ascii'))
 
 
 launch_client()
